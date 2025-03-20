@@ -9,17 +9,35 @@ namespace JD.Weather
 {
     public static class WeatherRequest
     {
-        public static class London 
-        { 
-            public static void GetTime()
-            {
+        public static class London
+        {
+            public static string location { get; } = "London";
 
+            public static float lat { get; }  = 51.5073219f;
+            public static float lon { get; } = -0.1276474f;
+
+            public async static Task<Models.Time> GetTime()
+            {
+                DownloadHandlerBuffer downloadHandler = new DownloadHandlerBuffer();
+                UnityWebRequest request = new UnityWebRequest(string.Format("http://localhost:3000/unix-time?lat={0}&lon={1}", lat, lon), "GET");
+                request.downloadHandler = downloadHandler;
+
+                await request.SendWebRequest();
+
+                if (request.result == UnityWebRequest.Result.Success)
+                {
+                    Debug.Log($"{request.downloadHandler.text}");
+                    Models.UnixTime unix = JsonUtility.FromJson<Models.UnixTime>(request.downloadHandler.text);
+                    Models.Time time = new Models.Time(unix.unix_time);
+                    return time;
+                }               
+                return null;
             }
 
             public async static Task<Models.Weather> GetWeather()
             {
                 DownloadHandlerBuffer downloadHandler = new DownloadHandlerBuffer();
-                UnityWebRequest request = new UnityWebRequest("https://api.openweathermap.org/data/3.0/onecall?lat=51.5073219&lon=-0.1276474&appid=c74b686274bd6cfd89569e10c7849f95", "GET");
+                UnityWebRequest request = new UnityWebRequest(string.Format("http://localhost:3000/weather?lat={0}&lon={1}", lat, lon), "GET");
                 request.downloadHandler = downloadHandler;
 
                 await request.SendWebRequest();
@@ -28,10 +46,9 @@ namespace JD.Weather
                 {
                     Debug.Log($"{request.downloadHandler.text}");
                     Models.Weather weather = JsonUtility.FromJson<Models.Weather>(request.downloadHandler.text);
-                    Debug.Log(weather.ToString());
                     return weather;
                 }
-                return new Models.Weather();
+                return null;
             }
         }
     }

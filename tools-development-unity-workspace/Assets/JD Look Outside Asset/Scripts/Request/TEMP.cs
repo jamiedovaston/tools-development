@@ -7,7 +7,11 @@ namespace JD.Temp
     {
         async void Start()
         {
-            await WeatherRequest.London.GetWeather();
+            Models.Weather weather = await WeatherRequest.London.GetWeather();
+            Models.Time time = await WeatherRequest.London.GetTime();
+
+            Debug.Log(weather.description);
+            Debug.Log(time.time);
         }
     }
 }
