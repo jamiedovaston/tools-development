@@ -19,4 +19,22 @@ async function getData(lat, lon) {
     }
 }
 
+async function getGeographicalData(location)
+{
+    try {
+        const response = await axios.get('https://api.openweathermap.org/geo/1.0/direct', {
+            params: {
+                q: location,
+                limit: 1,
+                appid: process.env.APPID
+            }
+        });
+
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return {};
+    }
+}
+
 module.exports = { getData };

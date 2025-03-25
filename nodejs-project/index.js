@@ -36,6 +36,19 @@ app.get('/unix-time', async (req, res) => {
    }
 });
 
+app.get('/geo-location', async (req, res) => {
+    try {
+        const data = await functions.getGeographicalData(req.query.location);
+
+        res.json({
+            name: data.name,
+            lat: data.lat,
+            lon: data.lon,
+            country: data.country
+        });
+    }
+})
+
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
 });

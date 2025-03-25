@@ -26,5 +26,13 @@ namespace JD.Models
             time = DateTimeOffset.FromUnixTimeSeconds(unix_timestamp).UtcDateTime;
         }
     }
+
+    public class Location
+    {
+        public string name;
+        public float lat;
+        public float lon;
+        public string country;
+    }
 }
 

@@ -1,4 +1,5 @@
-using JD.Weather;
+using JD.LookOutside.Weather;
+using JD.LookOutside.Time;
 using UnityEngine;
 
 namespace JD.Temp
@@ -7,8 +8,8 @@ namespace JD.Temp
     {
         async void Start()
         {
-            Models.Weather weather = await WeatherRequest.London.GetWeather();
-            Models.Time time = await WeatherRequest.London.GetTime();
+            Models.Weather weather = await JD.LookOutside.Weather.WeatherRequest.GetWeather();
+            Models.Time time = await TimeRequest.GetTime();
 
             Debug.Log(weather.description);
             Debug.Log(time.time);
