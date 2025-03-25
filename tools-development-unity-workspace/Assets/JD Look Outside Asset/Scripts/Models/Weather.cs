@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JD.Models
+namespace JD.LookOutside.Models
 {
     public class Weather
     {

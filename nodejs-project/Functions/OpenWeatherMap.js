@@ -12,17 +12,17 @@ async function getData(lat, lon) {
             }
         });
 
-        return response.data; // Here you would map it to your Models.Weather structure if needed
+        return response.data;
     } catch (error) {
-        console.error(error); // Log the error for debugging
-        return {}; // Return an empty object or appropriate fallback
+        console.error(error);
+        return {};
     }
 }
 
 async function getGeographicalData(location)
 {
     try {
-        const response = await axios.get('https://api.openweathermap.org/geo/1.0/direct', {
+        const response = await axios.get('http://api.openweathermap.org/geo/1.0/direct', {
             params: {
                 q: location,
                 limit: 1,
@@ -37,4 +37,4 @@ async function getGeographicalData(location)
     }
 }
 
-module.exports = { getData };
+module.exports = { getData, getGeographicalData };

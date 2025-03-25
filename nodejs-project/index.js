@@ -41,11 +41,13 @@ app.get('/geo-location', async (req, res) => {
         const data = await functions.getGeographicalData(req.query.location);
 
         res.json({
-            name: data.name,
-            lat: data.lat,
-            lon: data.lon,
-            country: data.country
+            name: data[0].name,
+            lat: data[0].lat,
+            lon: data[0].lon,
+            country: data[0].country
         });
+    } catch (error) {
+        res.status(500).json({error: 'Failed to fetch location data'})
     }
 })
 
