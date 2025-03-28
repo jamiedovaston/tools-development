@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace JD.LookOutside.Location
+namespace JD.LookOutside
 {
     [CreateAssetMenu(menuName = "JD/JD Look Outside/Location", fileName = "LOCATION_NAME")]
     public class LocationEasySO : ScriptableObject

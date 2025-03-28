@@ -1,12 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Threading.Tasks;
-using JD.LookOutside.Location;
+using UnityEditor;
+using JetBrains.Annotations;
 
-namespace JD.LookOutside.Time
+namespace JD.LookOutside
 {
     public static class TimeServices
     {
+        [RuntimeInitializeOnLoadMethod]
+        private async static void Initialise()
+        {
+            await GetTime();
+        }
+
         public async static Task<Models.Time> GetTime()
         {
             DownloadHandlerBuffer downloadHandler = new DownloadHandlerBuffer();
@@ -24,4 +31,20 @@ namespace JD.LookOutside.Time
             return null;
         }
     }
+
+    public class TimeKeeperComponent : JDLO_Component
+    {
+        public void Initialise()
+        {
+
+        }
+    }
+
+    public class JDLO_Component : MonoBehaviour 
+    {
+        public JDLO_Component() {
+            gameObject.hideFlags = HideFlags.HideInInspector;
+        }
+    }
+
 }

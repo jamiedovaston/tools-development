@@ -22,7 +22,7 @@ namespace JD.LookOutside.Models
         public DateTime time;
 
         public Time(long unix_timestamp)
-        {
+        {            
             time = DateTimeOffset.FromUnixTimeSeconds(unix_timestamp).UtcDateTime;
         }
     }

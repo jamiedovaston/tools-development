@@ -1,12 +1,10 @@
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Threading.Tasks;
-using JD.LookOutside.Location;
 using System;
-using JD.LookOutside.Weather;
 using JD.LookOutside.Utilities;
 
-namespace JD.LookOutside.Weather
+namespace JD.LookOutside
 {
     public static class WeatherServices
     {
@@ -39,7 +37,7 @@ namespace JD.LookOutside.Weather
     }
 }
 
-namespace JD.LookOutside.Location
+namespace JD.LookOutside
 {
     public static class LocationServices
     {
@@ -92,7 +90,6 @@ namespace JD.LookOutside.Location
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log($"{request.downloadHandler.text}");
                 Models.Location location_data = JsonUtility.FromJson<Models.Location>(request.downloadHandler.text);
                 return location_data;
             }

@@ -12,6 +12,8 @@ async function getData(lat, lon) {
             }
         });
 
+        console.debug(response.data);
+
         return response.data;
     } catch (error) {
         console.error(error);

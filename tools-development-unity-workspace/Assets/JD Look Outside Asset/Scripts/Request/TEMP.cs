@@ -1,8 +1,5 @@
-using JD.LookOutside.Weather;
-using JD.LookOutside.Time;
 using UnityEngine;
-using UnityEditor;
-using JD.LookOutside.Location;
+using JD.LookOutside;
 
 namespace JD.Temp
 {
@@ -14,7 +11,7 @@ namespace JD.Temp
         {
             LocationServices.SetLocation(m_FrmwrkLocation.Location, async ()=>
             {
-                LookOutside.Models.Weather weather = await JD.LookOutside.Weather.WeatherServices.GetWeather();
+                LookOutside.Models.Weather weather = await WeatherServices.GetWeather();
                 LookOutside.Models.Time time = await TimeServices.GetTime();
 
                 Debug.Log(weather.description);

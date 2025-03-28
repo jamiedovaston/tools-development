@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace JD.LookOutside.Location
+namespace JD.LookOutside
 {
     [System.Serializable]
     public class LocationAdvanced : LocationEasy
