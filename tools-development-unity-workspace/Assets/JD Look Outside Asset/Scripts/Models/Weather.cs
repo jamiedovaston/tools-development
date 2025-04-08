@@ -12,6 +12,7 @@ namespace JD.LookOutside.Models
 
     public class UnixTime
     {
+        public int timezone_offset;
         public long unix_time;
         public long unix_sunrise;
         public long unix_sunset;

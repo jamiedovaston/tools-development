@@ -7,16 +7,19 @@ namespace JD.Temp
     {
         public LocationEasySO m_FrmwrkLocation;
 
-        private void Start()
+        private async void Start()
         {
-            LocationServices.SetLocation(m_FrmwrkLocation.Location, async ()=>
+            if(await Services.Get())
             {
-                LookOutside.Models.Weather weather = await WeatherServices.GetWeather();
-                LookOutside.Models.Time time = await TimeServices.GetTime();
+                LocationServices.SetLocation(m_FrmwrkLocation.Location, async ()=>
+                {
+                    LookOutside.Models.Weather weather = await WeatherServices.GetWeather();
+                    LookOutside.Models.Time time = await TimeServices.GetTime();
 
-                Debug.Log(weather.description);
-                Debug.Log(time.time);
-            });
+                    Debug.Log(weather.description);
+                    Debug.Log(time.time);
+                });
+            }
         }
     }
 }

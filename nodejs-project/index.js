@@ -27,6 +27,7 @@ app.get('/unix-time', async (req, res) => {
        const data = await functions.getData(req.query.lat, req.query.lon);
 
        res.json({
+           timezone_offset: data.timezone_offset,
            unix_time: data.current.dt,
            unix_sunrise: data.current.sunrise,
            unix_sunset: data.current.sunset,
@@ -50,6 +51,10 @@ app.get('/geo-location', async (req, res) => {
         res.status(500).json({error: 'Failed to fetch location data'})
     }
 })
+
+app.get('/', (req, res) => {
+    res.send('Welcome to the weather server!');
+});
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
