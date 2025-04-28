@@ -1,23 +1,36 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace JD.LookOutside
 {
     public class TimeKeeperComponent : JDLO_Component, ITimeKeeperable
     {
-        public DateTime CurrentDateTimeToTrack
+        public long CurrentDateTimeToTrack
         {
             get; private set;
         }
 
-        void ITimeKeeperable.TimeToTrack(DateTime _newDateTime)
+        private float localStartTime;
+
+        void ITimeKeeperable.TimeToTrack(long _newUnixTimestamp)
         {
-            CurrentDateTimeToTrack = _newDateTime;
+            CurrentDateTimeToTrack = _newUnixTimestamp;
+            localStartTime = Time.realtimeSinceStartup;
+        }
+
+        public DateTime GetDateTime() 
+        {
+            float elapsedTime = Time.realtimeSinceStartup - localStartTime;
+            long unixNow = CurrentDateTimeToTrack + (long)elapsedTime;
+
+            return DateTimeOffset.FromUnixTimeSeconds(unixNow).UtcDateTime;
         }
     }
 
     public interface ITimeKeeperable
     {
-        public void TimeToTrack(DateTime time);
+        public DateTime GetDateTime();
+        void TimeToTrack(long _newUnixTimestamp);
     }
 }

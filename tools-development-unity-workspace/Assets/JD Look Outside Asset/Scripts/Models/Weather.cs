@@ -20,11 +20,10 @@ namespace JD.LookOutside.Models
 
     public class Time
     {
-        public DateTime time;
-
+        public long unix_timestamp;
         public Time(long unix_timestamp)
-        {            
-            time = DateTimeOffset.FromUnixTimeSeconds(unix_timestamp).UtcDateTime;
+        {
+            this.unix_timestamp = unix_timestamp;
         }
     }
 

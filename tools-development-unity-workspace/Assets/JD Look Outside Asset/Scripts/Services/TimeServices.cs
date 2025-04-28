@@ -1,19 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Threading.Tasks;
-using UnityEditor;
+using System;
 
 namespace JD.LookOutside
 {
     public static class TimeServices
     {
-        private static ITimeKeeperable TimeKeeperable;
+        public static ITimeKeeperable TimeKeeperable;
 
         [RuntimeInitializeOnLoadMethod]
         private static void Initialise()
         {
             GameObject timeKeeperComponent = Resources.Load<GameObject>("JD/Components/JDLOTimeKeeper");
-            timeKeeperComponent = Object.Instantiate(timeKeeperComponent);
+            timeKeeperComponent = UnityEngine.Object.Instantiate(timeKeeperComponent);
             TimeKeeperable = timeKeeperComponent.GetComponent<ITimeKeeperable>();
         }
 
@@ -21,7 +21,7 @@ namespace JD.LookOutside
         {
             Models.Time time = await GetTimeFromServices();
 
-            TimeKeeperable.TimeToTrack(time.time);
+            TimeKeeperable.TimeToTrack(time.unix_timestamp);
         }
 
         private async static Task<Models.Time> GetTimeFromServices()
@@ -40,5 +40,7 @@ namespace JD.LookOutside
             }
             return null;
         }
+
+        public static DateTime GetTime() => TimeKeeperable.GetDateTime();
     }
 }

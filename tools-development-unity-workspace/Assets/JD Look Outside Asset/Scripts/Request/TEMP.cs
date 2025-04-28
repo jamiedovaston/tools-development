@@ -1,5 +1,6 @@
 using UnityEngine;
 using JD.LookOutside;
+using System;
 
 namespace JD.Temp
 {
@@ -14,10 +15,10 @@ namespace JD.Temp
                 LocationServices.SetLocation(m_FrmwrkLocation.Location, async ()=>
                 {
                     LookOutside.Models.Weather weather = await WeatherServices.GetWeather();
-                    LookOutside.Models.Time time = await TimeServices.GetTime();
+                    DateTime time = TimeServices.GetTime();
 
                     Debug.Log(weather.description);
-                    Debug.Log(time.time);
+                    Debug.Log(time);
                 });
             }
         }
