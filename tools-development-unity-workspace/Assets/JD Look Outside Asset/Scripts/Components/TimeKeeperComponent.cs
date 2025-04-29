@@ -6,6 +6,18 @@ namespace JD.LookOutside
 {
     public class TimeKeeperComponent : JDLO_Component, ITimeKeeperable
     {
+        public static TimeKeeperComponent instance;
+        public void Awake()
+        {
+            if (instance != null)
+            {
+                DontDestroyOnLoad(gameObject);
+                instance = this;
+            }
+            else
+                Destroy(gameObject);
+        }
+
         public long CurrentDateTimeToTrack
         {
             get; private set;
@@ -21,8 +33,6 @@ namespace JD.LookOutside
 
         public DateTime GetDateTime() 
         {
-            Debug.Log(Time.realtimeSinceStartup);
-            Debug.Log((long)Time.realtimeSinceStartup);
             float elapsedTime = Time.realtimeSinceStartup - localStartTime;
             long unixNow = CurrentDateTimeToTrack + (long)elapsedTime;
 

@@ -11,7 +11,7 @@ namespace JD.LookOutside
 
         [RuntimeInitializeOnLoadMethod]
         private static void Initialise()
-        {
+        { 
             GameObject timeKeeperComponent = Resources.Load<GameObject>("JD/Components/JDLOTimeKeeper");
             timeKeeperComponent = UnityEngine.Object.Instantiate(timeKeeperComponent);
             TimeKeeperable = timeKeeperComponent.GetComponent<ITimeKeeperable>();
