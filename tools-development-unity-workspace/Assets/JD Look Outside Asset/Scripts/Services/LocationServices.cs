@@ -10,13 +10,14 @@ namespace JD.LookOutside
     {
         public static Action<LocationAdvanced> OnLocationSet;
 
+        private static LocationAdvanced m_Loc;
         private static LocationAdvanced m_Location
         {
-            get => m_Location;
+            get => m_Loc;
             set
             {
-                m_Location = value;
-                OnLocationSet?.Invoke(m_Location);
+                m_Loc = value;
+                OnLocationSet?.Invoke(m_Loc);
             }
         }
 
@@ -54,13 +55,13 @@ namespace JD.LookOutside
             SetLocation(advcedData, onComplete);
         }
 
-        public static void SetLocation(LocationAdvanced m_Data, Action onComplete = null)
+        public async static void SetLocation(LocationAdvanced m_Data, Action onComplete = null)
         {
             m_Location = m_Data;
 
             Debug.Log(DebugFormatting.Format($"Set location to {m_Data.m_Location}. Co-ordinates: lat: {m_Location.m_Latitude} lon: {m_Location.m_Longitude}"));
 
-            TimeServices.StartListening();
+            await TimeServices.StartListening();
 
             onComplete?.Invoke();
         }

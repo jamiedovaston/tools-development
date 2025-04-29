@@ -17,7 +17,7 @@ namespace JD.LookOutside
             TimeKeeperable = timeKeeperComponent.GetComponent<ITimeKeeperable>();
         }
 
-        public async static void StartListening()
+        public async static Task StartListening()
         {
             Models.Time time = await GetTimeFromServices();
 

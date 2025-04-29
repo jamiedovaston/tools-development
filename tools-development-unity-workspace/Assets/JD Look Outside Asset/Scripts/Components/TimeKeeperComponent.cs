@@ -21,6 +21,8 @@ namespace JD.LookOutside
 
         public DateTime GetDateTime() 
         {
+            Debug.Log(Time.realtimeSinceStartup);
+            Debug.Log((long)Time.realtimeSinceStartup);
             float elapsedTime = Time.realtimeSinceStartup - localStartTime;
             long unixNow = CurrentDateTimeToTrack + (long)elapsedTime;
 
