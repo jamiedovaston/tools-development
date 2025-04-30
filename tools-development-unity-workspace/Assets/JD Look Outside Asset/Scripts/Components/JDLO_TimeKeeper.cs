@@ -4,20 +4,8 @@ using UnityEngine.UIElements;
 
 namespace JD.LookOutside
 {
-    public class TimeKeeperComponent : JDLO_Component, ITimeKeeperable
+    public class JDLO_TimeKeeper : JDLO_Component, ITimeKeeperable
     {
-        public static TimeKeeperComponent instance;
-        public void Awake()
-        {
-            if (instance != null)
-            {
-                DontDestroyOnLoad(gameObject);
-                instance = this;
-            }
-            else
-                Destroy(gameObject);
-        }
-
         public long CurrentDateTimeToTrack
         {
             get; private set;
