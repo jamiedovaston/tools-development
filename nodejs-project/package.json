@@ -7,14 +7,12 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "axios": "^1.8.4",
     "dotenv": "^16.5.0",
-    "express": "^4.21.2",
-    "graphql": "^16.10.0",
-    "graphql-http": "^1.22.4",
-    "luxon": "^3.5.0"
+    "express": "^4.21.2"
   }
 }
