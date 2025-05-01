@@ -5,7 +5,6 @@ const port = 3000;
 
 const functions = require('./Functions/OpenWeatherMap');
 
-
 app.get('/weather', async (req, res) => {
     try {
         const data = await functions.getData(req.query.lat, req.query.lon);

@@ -11,7 +11,7 @@ namespace JD.LookOutside
         public static bool Initialised { get; private set; }
         public async static Task<bool> Init()
         {
-            UnityWebRequest request = new UnityWebRequest("http://localhost:3000/", "GET");
+            UnityWebRequest request = new UnityWebRequest($"{JDLOConfig.Domain}", "GET");
             request.downloadHandler = new DownloadHandlerBuffer();
 
             try

@@ -2,6 +2,7 @@
 using UnityEngine.Networking;
 using System.Threading.Tasks;
 using System;
+using JD.LookOutside.Utilities;
 
 namespace JD.LookOutside
 {
@@ -27,7 +28,7 @@ namespace JD.LookOutside
         private async static Task<Models.Time> GetTimeFromServices()
         {
             DownloadHandlerBuffer downloadHandler = new DownloadHandlerBuffer();
-            UnityWebRequest request = new UnityWebRequest(string.Format("http://localhost:3000/unix-time?lat={0}&lon={1}", LocationServices.CurrentLocation.m_Latitude, LocationServices.CurrentLocation.m_Longitude), "GET");
+            UnityWebRequest request = new UnityWebRequest($"{JDLOConfig.Domain}unix-time?lat={LocationServices.CurrentLocation.m_Latitude}&lon={LocationServices.CurrentLocation.m_Longitude}", "GET");
             request.downloadHandler = downloadHandler;
 
             await request.SendWebRequest();

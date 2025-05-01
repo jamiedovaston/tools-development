@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Threading.Tasks;
+using JD.LookOutside.Utilities;
 
 namespace JD.LookOutside
 {
@@ -20,7 +21,7 @@ namespace JD.LookOutside
         public async static Task<Models.Weather> GetWeather()
         {
             DownloadHandlerBuffer downloadHandler = new DownloadHandlerBuffer();
-            UnityWebRequest request = new UnityWebRequest(string.Format("http://localhost:3000/weather?lat={0}&lon={1}", LocationServices.CurrentLocation.m_Latitude, LocationServices.CurrentLocation.m_Longitude), "GET");
+            UnityWebRequest request = new UnityWebRequest($"{JDLOConfig.Domain}weather?lat={LocationServices.CurrentLocation.m_Latitude}&lon={LocationServices.CurrentLocation.m_Longitude}", "GET");
             request.downloadHandler = downloadHandler;
 
             await request.SendWebRequest();

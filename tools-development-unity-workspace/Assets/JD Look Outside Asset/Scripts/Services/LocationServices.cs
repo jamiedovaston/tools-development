@@ -69,7 +69,7 @@ namespace JD.LookOutside
         private async static Task<Models.Location> GetLocation(string location)
         {
             DownloadHandlerBuffer downloadHandler = new DownloadHandlerBuffer();
-            UnityWebRequest request = new UnityWebRequest(string.Format("http://localhost:3000/geo-location?location={0}", location), "GET");
+            UnityWebRequest request = new UnityWebRequest($"{JDLOConfig.Domain}geo-location?location={location}", "GET");
             request.downloadHandler = downloadHandler;
 
             await request.SendWebRequest();
