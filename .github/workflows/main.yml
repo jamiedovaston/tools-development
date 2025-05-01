@@ -1,0 +1,33 @@
+name: Deploy Trigger
+
+on:
+  push:
+    branches: [ main ]  
+  pull_request:
+    branches: [ main ]
+  
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    container:
+      image: alpine:latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      
+    - name: Install curl
+      run: |
+        echo "Installing curl..."
+        apk update && apk add curl
+        
+    - name: Trigger deployment
+      run: |
+        echo "Triggering deployment..."
+        curl --request POST "http://193.160.23.178:3000/api/box/deploy/886433ff0038f73b2d0ea7d315fc8d9275cca5205b881eb2"
+        
+    - name: Verify deployment status
+      run: |
+        echo "Deployment triggered successfully"
