@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f779a58f1e4ba954ebe17fc39ab5d128, type: 3}
   m_Name: JDLO Config
   m_EditorClassIdentifier: 
-  <hostDomain>k__BackingField: http://localhost:3000/
+  <hostDomain>k__BackingField: https://jportfolio-tool-development.ulquuu.easypanel.host/

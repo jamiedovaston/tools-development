@@ -4,9 +4,9 @@ using System;
 using TMPro;
 using JD.LookOutside.Models;
 
-namespace JD.Temp
+namespace JD.LookOutside.Samples
 {
-    public class TEMP : MonoBehaviour
+    public class JDLO_Time_Sample_Controller : MonoBehaviour
     {
         public LocationEasySO m_FrmwrkLocation;
 
@@ -46,6 +46,7 @@ namespace JD.Temp
                 DateTime time = TimeServices.GetTime();
 
                 Debug.Log(weather.description);
+                Debug.Log(weather.id);
                 Debug.Log(time);
                 m_LocationName.text = m_Location.Location.m_Location;
             });
