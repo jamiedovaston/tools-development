@@ -8,6 +8,14 @@ namespace JD.LookOutside.Models
         public string main;
         public string description;
         public string icon;
+
+        public Weather(int id, string main, string description, string icon)
+        {
+            this.id = id;
+            this.main = main;
+            this.description = description;
+            this.icon = icon;
+        }
     }
 
     public class UnixTime

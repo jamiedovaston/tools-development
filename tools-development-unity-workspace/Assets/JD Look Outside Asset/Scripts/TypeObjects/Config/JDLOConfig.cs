@@ -6,7 +6,9 @@ namespace JD.LookOutside.Utilities
     [CreateAssetMenu(menuName = "JD/JD Look Outside/Config")]
     public class JDLOConfig : ScriptableObject
     {
-        [field: SerializeField] public string hostDomain { get; private set; } = "https://localhost:3000/";
+        public const string JDLO_MAIN_DOMAIN = "https://jportfolio-tool-development.ulquuu.easypanel.host/";
+        [field: SerializeField, Tooltip("Put domain here to override primary domain")] public string OverrideDefaultDomain { get; private set; }
+
         public static JDLOConfig instance;
         public static string Domain
         {
@@ -16,7 +18,10 @@ namespace JD.LookOutside.Utilities
 
                 Debug.Assert(instance != null, DebugFormatting.FormatError("No 'JDLO Config' found in path 'JD/Data/Config/JDLO Config'. (is the data object missing?)"));
 
-                return instance.hostDomain;
+                if (string.IsNullOrEmpty(instance.OverrideDefaultDomain))
+                    return JDLO_MAIN_DOMAIN;
+
+                return instance.OverrideDefaultDomain;
             }
         }
     }

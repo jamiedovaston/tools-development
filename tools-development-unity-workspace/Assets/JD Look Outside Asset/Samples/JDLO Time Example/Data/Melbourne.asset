@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f779a58f1e4ba954ebe17fc39ab5d128, type: 3}
-  m_Name: JDLO Config
+  m_Script: {fileID: 11500000, guid: 78bbabdc63068a64fa0378071151d391, type: 3}
+  m_Name: Melbourne
   m_EditorClassIdentifier: 
-  <hostDomain>k__BackingField: https://jportfolio-tool-development.ulquuu.easypanel.host/
+  m_Location:
+    m_Location: Melbourne

@@ -49,10 +49,13 @@ namespace JD.LookOutside
 
             Models.Location location = await GetLocation(m_Data.m_Location);
 
-            LocationAdvanced advcedData = new LocationAdvanced();
-            advcedData.Initialise(location);
-
-            SetLocation(advcedData, onComplete);
+            if(location != null)
+            {
+                LocationAdvanced advcedData = new LocationAdvanced();
+                advcedData.Initialise(location);
+                SetLocation(advcedData, onComplete);
+            }
+            else Debug.LogError(DebugFormatting.FormatError($"Unable to set location. Location data came back null."));
         }
 
         public async static void SetLocation(LocationAdvanced m_Data, Action onComplete = null)
@@ -79,6 +82,8 @@ namespace JD.LookOutside
                 Models.Location location_data = JsonUtility.FromJson<Models.Location>(request.downloadHandler.text);
                 return location_data;
             }
+            else
+                Debug.LogError(DebugFormatting.FormatError($"Couldn't find location from parameter: { location }. Error: { request.downloadHandler.error }"));
 
             return null;
         }
