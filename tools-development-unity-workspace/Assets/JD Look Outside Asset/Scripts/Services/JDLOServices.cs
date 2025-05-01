@@ -6,7 +6,7 @@ using JD.LookOutside.Utilities;
 
 namespace JD.LookOutside
 {
-    public static class Services
+    public static class JDLOServices
     {
         public static bool Initialised { get; private set; }
         public async static Task<bool> Init()

@@ -2,6 +2,7 @@ using UnityEngine;
 using JD.LookOutside;
 using System;
 using TMPro;
+using JD.LookOutside.Models;
 
 namespace JD.Temp
 {
@@ -15,23 +16,15 @@ namespace JD.Temp
 
         private async void Start()
         {
-            if (await Services.Init())
+            if (await JDLOServices.Init())
             {
-                LocationServices.SetLocation(m_FrmwrkLocation.Location, async () =>
-                {
-                    LookOutside.Models.Weather weather = await WeatherServices.GetWeather();
-                    DateTime time = TimeServices.GetTime();
-
-                    Debug.Log(weather.description);
-                    Debug.Log(time);
-                    m_LocationName.text = m_FrmwrkLocation.Location.m_Location;
-                });
+                SetLocation(m_FrmwrkLocation);
             }
         }
 
         public void FixedUpdate()
         {
-            if(Services.Initialised)
+            if(JDLOServices.Initialised)
             {
                 DateTime time = TimeServices.GetTime();
                 m_TimeText.text = time.ToString();
@@ -43,6 +36,19 @@ namespace JD.Temp
             DateTime time = TimeServices.GetTime();
 
             m_RequestedTimeText.text = time.ToString();
+        }
+
+        public void SetLocation(LocationEasySO m_Location)
+        {
+            LocationServices.SetLocation(m_Location.Location, async () =>
+            {
+                LookOutside.Models.Weather weather = await WeatherServices.GetWeather();
+                DateTime time = TimeServices.GetTime();
+
+                Debug.Log(weather.description);
+                Debug.Log(time);
+                m_LocationName.text = m_Location.Location.m_Location;
+            });
         }
     }
 }
