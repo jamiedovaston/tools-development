@@ -46,7 +46,7 @@ namespace JD.LookOutside.Samples
                 DateTime time = TimeServices.GetTime();
 
                 Debug.Log(weather.description);
-                Debug.Log(weather.id);
+                Debug.Log(weather.icon);
                 Debug.Log(time);
                 m_LocationName.text = m_Location.Location.m_Location;
             });
