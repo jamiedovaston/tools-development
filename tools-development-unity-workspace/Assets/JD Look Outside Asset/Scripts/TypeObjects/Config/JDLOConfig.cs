@@ -9,7 +9,7 @@ namespace JD.LookOutside.Utilities
         public const string JDLO_MAIN_DOMAIN = "https://jportfolio-tool-development.ulquuu.easypanel.host/";
         [field: SerializeField, Tooltip("Put domain here to override primary domain")] public string OverrideDefaultDomain { get; private set; }
 
-        public static JDLOConfig instance;
+        private static JDLOConfig instance;
         public static string Domain
         {
             get
