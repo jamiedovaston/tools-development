@@ -14,15 +14,19 @@ namespace JD.LookOutside.Utilities
         {
             get
             {
-                if (instance == null) instance = Resources.Load<JDLOConfig>("JD/Data/Config/JDLO Config");
+                if (instance == null)
+                {
+                    instance = Resources.Load<JDLOConfig>("JDLO/Data/Config/JDLO Config");
+                }
 
-                Debug.Assert(instance != null, DebugFormatting.FormatError("No 'JDLO Config' found in path 'JD/Data/Config/JDLO Config'. (is the data object missing?)"));
+                Debug.Assert(instance != null, DebugFormatting.FormatError("No 'JDLO Config' found in path 'JDLO/Data/Config/JDLO Config'. (is the data object missing?)"));
 
                 if (string.IsNullOrEmpty(instance.OverrideDefaultDomain))
                     return JDLO_MAIN_DOMAIN;
 
                 return instance.OverrideDefaultDomain;
             }
+
         }
     }
 }

@@ -9,5 +9,6 @@ EditorBuildSettings:
     path: Assets/JD Look Outside Asset/Samples/JDLO Time Example/Scenes/JDLO_Time_Example.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: f31133ff87da715498fc6cee9a08ec42, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

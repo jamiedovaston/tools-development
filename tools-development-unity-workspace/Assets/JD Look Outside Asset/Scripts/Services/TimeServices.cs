@@ -3,6 +3,7 @@ using UnityEngine.Networking;
 using System.Threading.Tasks;
 using System;
 using JD.LookOutside.Utilities;
+using UnityEditor;
 
 namespace JD.LookOutside
 {
@@ -10,10 +11,9 @@ namespace JD.LookOutside
     {
         public static ITimeKeeperable TimeKeeperable;
 
-        [RuntimeInitializeOnLoadMethod]
-        private static void Initialise()
-        { 
-            GameObject timeKeeperComponent = Resources.Load<GameObject>("JD/Components/JDLOTimeKeeper");
+        public static void Initialise()
+        {
+            GameObject timeKeeperComponent = Resources.Load<GameObject>("JDLO/Prefabs/Components/JDLOTimeKeeper");
             timeKeeperComponent = UnityEngine.Object.Instantiate(timeKeeperComponent);
             TimeKeeperable = timeKeeperComponent.GetComponent<ITimeKeeperable>();
         }

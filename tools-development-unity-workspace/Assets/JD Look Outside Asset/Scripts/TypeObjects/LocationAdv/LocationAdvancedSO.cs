@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace JD.LookOutside
 {
@@ -7,5 +8,13 @@ namespace JD.LookOutside
     {
         [SerializeField] protected LocationAdvanced m_Location;
         public LocationAdvanced Location => m_Location;
+    }
+
+    public class LocationAdvancedSOEditor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+
+        }
     }
 }
