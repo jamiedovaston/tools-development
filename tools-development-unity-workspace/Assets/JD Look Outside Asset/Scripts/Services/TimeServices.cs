@@ -18,6 +18,8 @@ namespace JD.LookOutside
             TimeKeeperable = timeKeeperComponent.GetComponent<ITimeKeeperable>();
         }
 
+        private static Models.Time m_Sunset, m_Sunrise;
+
         public async static Task StartListening()
         {
             Models.Time time = await GetTimeFromServices();
@@ -37,11 +39,15 @@ namespace JD.LookOutside
             {
                 Models.UnixTime unix = JsonUtility.FromJson<Models.UnixTime>(request.downloadHandler.text);
                 Models.Time time = new Models.Time(unix.unix_time + unix.timezone_offset);
+                m_Sunset = new Models.Time(unix.unix_sunset + unix.timezone_offset);
+                m_Sunrise = new Models.Time(unix.unix_sunrise + unix.timezone_offset);
                 return time;
             }
             return null;
         }
 
         public static DateTime GetTime() => TimeKeeperable.GetDateTime();
+        public static DateTime GetSunsetTime() => DateTimeOffset.FromUnixTimeSeconds(m_Sunset.unix_timestamp).UtcDateTime;
+        public static DateTime GetSunriseTime() => DateTimeOffset.FromUnixTimeSeconds(m_Sunrise.unix_timestamp).UtcDateTime;
     }
 }

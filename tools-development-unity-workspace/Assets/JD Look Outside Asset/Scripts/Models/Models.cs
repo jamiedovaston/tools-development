@@ -1,20 +1,29 @@
 ﻿using System;
+using UnityEngine;
 
 namespace JD.LookOutside.Models
 {
     public class Weather
     {
+        public struct Weather_JSON
+        {
+            public int id;
+            public string main;
+            public string description;
+            public string icon;
+        }
+
         public int id;
         public string main;
         public string description;
-        public string icon;
+        public Sprite icon;
 
-        public Weather(int id, string main, string description, string icon)
+        public Weather(Weather_JSON m_Weather)
         {
-            this.id = id;
-            this.main = main;
-            this.description = description;
-            this.icon = icon;
+            this.id = m_Weather.id;
+            this.main = m_Weather.main;
+            this.description = m_Weather.description;
+            this.icon = Resources.Load<Sprite>($"JDLO/Weather Icons/{ m_Weather.icon }");
         }
     }
 

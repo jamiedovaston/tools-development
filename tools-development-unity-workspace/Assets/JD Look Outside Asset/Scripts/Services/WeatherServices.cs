@@ -28,7 +28,7 @@ namespace JD.LookOutside
 
             if(request.result == UnityWebRequest.Result.Success)
             {
-                Models.Weather weather = JsonUtility.FromJson<Models.Weather>(request.downloadHandler.text);
+                Models.Weather weather = new Models.Weather(JsonUtility.FromJson<Models.Weather.Weather_JSON>(request.downloadHandler.text));
                 return weather;
             }
             return null;

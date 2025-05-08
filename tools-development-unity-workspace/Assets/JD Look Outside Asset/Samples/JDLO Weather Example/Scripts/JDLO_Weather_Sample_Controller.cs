@@ -1,29 +1,55 @@
-using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using JD.LookOutside;
+using TMPro;
 
 namespace JD.LookOutside.Samples
 {
     public class JDLO_Weather_Sample_Controller : MonoBehaviour
     {
-        public struct Example_CityExtended
+        [Serializable]
+        public struct Example_LocationExtended
         {
-            public LocationAdvanced m_Location;
+            public LocationEasy m_Location;
             public Sprite m_Image;
         }
 
         private int m_LocationIndex = 0;
+        [SerializeField, Header("Cities")] private List<Example_LocationExtended> m_Cities = new List<Example_LocationExtended>();
 
-        [SerializeField] private Button m_NextButton, m_PreviousButton;
+        [Header("UI")]
+        [SerializeField] private Button m_NextButton;
+        [SerializeField] private Button m_PreviousButton;
+        [Space(15)]
+        [SerializeField] private TMP_Text m_CityText;
+        [Space(15)]
+        [SerializeField] private Image m_WeatherIcon;
+        [SerializeField] private TMP_Text m_WeatherText;
+        [Space(15)]
+        [SerializeField] private TMP_Text m_TimeText;
+        [SerializeField] private TMP_Text m_SunsetText;
+        [SerializeField] private TMP_Text m_SunriseText;
+        [Space(15)]
+        [SerializeField] private Image m_CityImage;
 
-        [field: SerializeField] public List<Example_CityExtended> m_Cities { get; private set; }
-
-        private void Awake()
+        private async void Awake()
         {
             m_LocationIndex = 0;
-            UpdateWeatherUI();
+            if (await JDLOServices.Init())
+            {
+                UpdateWeatherUI();
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (JDLOServices.Initialised)
+            {
+                DateTime time = TimeServices.GetTime();
+                m_TimeText.text = time.ToString();
+            }
         }
 
         private void OnEnable()
@@ -40,7 +66,7 @@ namespace JD.LookOutside.Samples
 
         private void Next()
         {
-            if (m_LocationIndex + 1 > m_Cities.Count)
+            if (m_LocationIndex + 1 > m_Cities.Count - 1)
                 m_LocationIndex = 0;
             else m_LocationIndex++;
 
@@ -49,8 +75,8 @@ namespace JD.LookOutside.Samples
 
         private void Previous()
         {
-            if (m_LocationIndex + 1 < 0)
-                m_LocationIndex = m_Cities.Count;
+            if (m_LocationIndex - 1 < 0)
+                m_LocationIndex = m_Cities.Count - 1;
             else m_LocationIndex--;
 
             UpdateWeatherUI();
@@ -61,9 +87,21 @@ namespace JD.LookOutside.Samples
         {
             if (!JDLOServices.Initialised) await JDLOServices.Init();
 
-            LocationServices.SetLocation(m_Cities[m_LocationIndex].m_Location, async () =>
+            Example_LocationExtended m_City = m_Cities[m_LocationIndex];
+
+            LocationServices.SetLocation(m_City.m_Location, async () =>
             {
                 Models.Weather m_Weather = await WeatherServices.GetWeather();
+
+                m_CityText.text = m_City.m_Location.m_Location;
+
+                m_WeatherText.text = m_Weather.description;
+                m_WeatherIcon.sprite = m_Weather.icon;
+
+                m_SunriseText.text = $"SR: { TimeServices.GetSunriseTime().ToString("HH:mm:ss")}";
+                m_SunsetText.text = $"SS: { TimeServices.GetSunsetTime().ToString("HH:mm:ss")}";
+
+                m_CityImage.sprite = m_City.m_Image;
             });
         }
     }
