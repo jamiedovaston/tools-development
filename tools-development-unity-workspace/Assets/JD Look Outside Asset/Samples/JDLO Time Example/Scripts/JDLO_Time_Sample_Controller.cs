@@ -38,9 +38,11 @@ namespace JD.LookOutside.Samples
             m_RequestedTimeText.text = time.ToString();
         }
 
-        public void SetLocation(LocationEasySO m_Location)
+        public void SetLocation(LocationEasySO m_Location) => SetLocation(m_Location.Location);
+        public void SetLocation(LocationAdvancedSO m_Location) => SetLocation(m_Location.Location);
+        private void SetLocation(LocationEasy m_Location)
         {
-            LocationServices.SetLocation(m_Location.Location, async () =>
+            LocationServices.SetLocation(m_Location, async () =>
             {
                 LookOutside.Models.Weather weather = await WeatherServices.GetWeather();
                 DateTime time = TimeServices.GetTime();
@@ -48,7 +50,7 @@ namespace JD.LookOutside.Samples
                 Debug.Log(weather.description);
                 Debug.Log(weather.icon);
                 Debug.Log(time);
-                m_LocationName.text = m_Location.Location.m_Location;
+                m_LocationName.text = m_Location.m_Location;
             });
         }
     }

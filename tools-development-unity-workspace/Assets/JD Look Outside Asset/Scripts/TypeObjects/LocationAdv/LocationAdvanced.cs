@@ -15,9 +15,9 @@ namespace JD.LookOutside
             m_Longitude = data.lon;
         }
 
-        public void Initialise(LocationEasySO data)
+        public void Initialise(LocationEasy data)
         {
-            m_Location = data.name;
+            m_Location = data.m_Location;
         }
     }
 }

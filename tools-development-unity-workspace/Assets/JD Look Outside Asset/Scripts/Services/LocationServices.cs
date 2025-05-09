@@ -58,7 +58,7 @@ namespace JD.LookOutside
             else Debug.LogError(DebugFormatting.FormatError($"Unable to set location. Location data came back null."));
         }
 
-        public async static void SetLocation(LocationAdvanced m_Data, Action onComplete = null)
+        private async static void SetLocation(LocationAdvanced m_Data, Action onComplete = null)
         {
             m_Location = m_Data;
 

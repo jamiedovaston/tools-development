@@ -19,7 +19,7 @@ namespace JD.LookOutside
             localStartTime = Time.realtimeSinceStartup;
         }
 
-        public DateTime GetDateTime() 
+        DateTime ITimeKeeperable.GetDateTime() 
         {
             float elapsedTime = Time.realtimeSinceStartup - localStartTime;
             long unixNow = CurrentDateTimeToTrack + (long)elapsedTime;
