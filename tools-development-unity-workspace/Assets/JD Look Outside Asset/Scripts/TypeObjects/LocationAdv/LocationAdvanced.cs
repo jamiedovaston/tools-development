@@ -9,6 +9,13 @@ namespace JD.LookOutside
         public float m_Latitude = float.NaN;
         public float m_Longitude = float.NaN;
 
+        public LocationAdvanced() { }
+
+        public LocationAdvanced(string location) : base(location)
+        {
+            m_Location = location;
+        }
+
         public void Initialise(Models.Location data) {
             m_Location = data.name;
             m_Latitude = data.lat;

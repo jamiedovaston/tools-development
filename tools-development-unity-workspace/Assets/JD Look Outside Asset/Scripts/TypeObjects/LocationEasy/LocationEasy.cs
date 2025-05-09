@@ -7,5 +7,12 @@ namespace JD.LookOutside
     public class LocationEasy
     {
         public string m_Location;
+
+        public LocationEasy() { }
+
+        public LocationEasy(string location)
+        {
+            m_Location = location;
+        }
     }
 }

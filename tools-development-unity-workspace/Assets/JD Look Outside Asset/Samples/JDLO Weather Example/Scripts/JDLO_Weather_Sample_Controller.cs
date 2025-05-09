@@ -39,7 +39,7 @@ namespace JD.LookOutside.Samples
             m_LocationIndex = 0;
             if (await JDLOServices.Init())
             {
-                UpdateWeatherUI();
+                UpdateLocationUI();
             }
         }
 
@@ -56,12 +56,16 @@ namespace JD.LookOutside.Samples
         {
             m_NextButton.onClick.AddListener(Next);
             m_PreviousButton.onClick.AddListener(Previous);
+
+            WeatherServices.OnUpdatedWeather += UpdateWeatherUI;
         }
 
         private void OnDisable()
         {
             m_NextButton.onClick.RemoveAllListeners();
             m_PreviousButton.onClick.RemoveAllListeners();
+
+            WeatherServices.OnUpdatedWeather -= UpdateWeatherUI;
         }
 
         private void Next()
@@ -70,7 +74,7 @@ namespace JD.LookOutside.Samples
                 m_LocationIndex = 0;
             else m_LocationIndex++;
 
-            UpdateWeatherUI();
+            UpdateLocationUI();
         }
 
         private void Previous()
@@ -79,30 +83,31 @@ namespace JD.LookOutside.Samples
                 m_LocationIndex = m_Cities.Count - 1;
             else m_LocationIndex--;
 
-            UpdateWeatherUI();
+            UpdateLocationUI();
         }
 
 
-        private async void UpdateWeatherUI()
+        private async void UpdateLocationUI()
         {
             if (!JDLOServices.Initialised) await JDLOServices.Init();
 
             Example_LocationExtended m_City = m_Cities[m_LocationIndex];
 
-            LocationServices.SetLocation(m_City.m_Location, async () =>
+            LocationServices.SetLocation(m_City.m_Location, () =>
             {
-                Models.Weather m_Weather = await WeatherServices.GetWeather();
-
                 m_CityText.text = m_City.m_Location.m_Location;
-
-                m_WeatherText.text = m_Weather.description;
-                m_WeatherIcon.sprite = m_Weather.icon;
 
                 m_SunriseText.text = $"SR: { TimeServices.GetSunriseTime().ToString("HH:mm:ss")}";
                 m_SunsetText.text = $"SS: { TimeServices.GetSunsetTime().ToString("HH:mm:ss")}";
 
                 m_CityImage.sprite = m_City.m_Image;
             });
+        }
+
+        private void UpdateWeatherUI(Models.Weather m_Weather)
+        {
+            m_WeatherText.text = m_Weather.description;
+            m_WeatherIcon.sprite = m_Weather.icon;
         }
     }
 }

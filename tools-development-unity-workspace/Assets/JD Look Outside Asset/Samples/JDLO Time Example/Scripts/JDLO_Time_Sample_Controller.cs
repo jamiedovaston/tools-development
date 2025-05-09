@@ -42,9 +42,9 @@ namespace JD.LookOutside.Samples
         public void SetLocation(LocationAdvancedSO m_Location) => SetLocation(m_Location.Location);
         private void SetLocation(LocationEasy m_Location)
         {
-            LocationServices.SetLocation(m_Location, async () =>
+            LocationServices.SetLocation(m_Location, () =>
             {
-                LookOutside.Models.Weather weather = await WeatherServices.GetWeather();
+                LookOutside.Models.Weather weather = WeatherServices.GetWeather();
                 DateTime time = TimeServices.GetTime();
 
                 Debug.Log(weather.description);

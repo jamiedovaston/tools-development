@@ -22,6 +22,7 @@ namespace JD.LookOutside
                 {
                     Debug.Log(DebugFormatting.Format("Successful connection to weather server!"));
                     TimeServices.Initialise();
+                    WeatherServices.Initialise();
                     Initialised = true;
                     return true;
                 }

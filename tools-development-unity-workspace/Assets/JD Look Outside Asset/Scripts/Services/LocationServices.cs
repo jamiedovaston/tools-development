@@ -39,6 +39,8 @@ namespace JD.LookOutside
             }
         }
 
+        public static void SetLocation(string m_Location, Action onComplete = null) => SetLocation(new LocationEasy(m_Location), onComplete);
+
         public async static void SetLocation(LocationEasy m_Data, Action onComplete = null)
         {
             if (!m_Data.IsNull())
@@ -65,6 +67,7 @@ namespace JD.LookOutside
             Debug.Log(DebugFormatting.Format($"Set location to {m_Data.m_Location}. Co-ordinates: lat: {m_Location.m_Latitude} lon: {m_Location.m_Longitude}"));
 
             await TimeServices.StartListening();
+            await WeatherServices.SetCurrentWeather();
 
             onComplete?.Invoke();
         }
