@@ -3,6 +3,7 @@ using UnityEngine.Networking;
 using System.Threading.Tasks;
 using System;
 using JD.LookOutside.Utilities;
+using UnityEditor;
 
 namespace JD.LookOutside
 {
@@ -10,13 +11,14 @@ namespace JD.LookOutside
     {
         public static ITimeKeeperable TimeKeeperable;
 
-        [RuntimeInitializeOnLoadMethod]
-        private static void Initialise()
-        { 
-            GameObject timeKeeperComponent = Resources.Load<GameObject>("JD/Components/JDLOTimeKeeper");
+        public static void Initialise()
+        {
+            GameObject timeKeeperComponent = Resources.Load<GameObject>("JDLO/Prefabs/Components/JDLOTimeKeeper");
             timeKeeperComponent = UnityEngine.Object.Instantiate(timeKeeperComponent);
             TimeKeeperable = timeKeeperComponent.GetComponent<ITimeKeeperable>();
         }
+
+        private static Models.Time m_Sunset, m_Sunrise;
 
         public async static Task StartListening()
         {
@@ -37,11 +39,15 @@ namespace JD.LookOutside
             {
                 Models.UnixTime unix = JsonUtility.FromJson<Models.UnixTime>(request.downloadHandler.text);
                 Models.Time time = new Models.Time(unix.unix_time + unix.timezone_offset);
+                m_Sunset = new Models.Time(unix.unix_sunset + unix.timezone_offset);
+                m_Sunrise = new Models.Time(unix.unix_sunrise + unix.timezone_offset);
                 return time;
             }
             return null;
         }
 
         public static DateTime GetTime() => TimeKeeperable.GetDateTime();
+        public static DateTime GetSunsetTime() => DateTimeOffset.FromUnixTimeSeconds(m_Sunset.unix_timestamp).UtcDateTime;
+        public static DateTime GetSunriseTime() => DateTimeOffset.FromUnixTimeSeconds(m_Sunrise.unix_timestamp).UtcDateTime;
     }
 }
