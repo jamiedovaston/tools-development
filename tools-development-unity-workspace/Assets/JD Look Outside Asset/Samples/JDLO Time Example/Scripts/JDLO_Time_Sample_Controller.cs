@@ -8,7 +8,7 @@ namespace JD.LookOutside.Samples
 {
     public class JDLO_Time_Sample_Controller : MonoBehaviour
     {
-        public LocationEasySO m_FrmwrkLocation;
+        public LocationEasySO m_StartLocation;
 
         [field: SerializeField] public TMP_Text m_TimeText { get; private set; }
         [field: SerializeField] public TMP_Text m_RequestedTimeText { get; private set; }
@@ -18,7 +18,7 @@ namespace JD.LookOutside.Samples
         {
             if (await JDLOServices.Init())
             {
-                SetLocation(m_FrmwrkLocation);
+                SetLocation(m_StartLocation);
             }
         }
 
